@@ -32,7 +32,7 @@
 ### TODO: Make this snippet more robust ....
 - name: create disk partitions 
   shell: |
-   if pvdisplay -C '{{ item.key }}'1 ; then
+   if pvdisplay -C '{{ item.key }}' ; then
        echo '{{ item.key }}' in use
        exit 0
    else
@@ -67,6 +67,8 @@
 #  with_dict: "{{ disks }}"
 #  tags:
 #  - disk_init
+#
+# TODO: Buggy -- tries to add disk, even if it exists
   
 - name: create or extend volumegroups
   shell: |
