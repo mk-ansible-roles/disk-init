@@ -132,7 +132,7 @@
 - name: mount and make fstab entries
   mount:
     name: "{{ item.value.mountpoint }}"
-    fstype: xfs
+    fstype: "{{ item.value.fstype | default('xfs')}}"
     opts: defaults
     passno: 4
     src: "/dev/{{ item.value.vol }}/lv_{{ item.key }}"
