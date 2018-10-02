@@ -1,6 +1,3 @@
 --
 - import_tasks: disk-init.yml
-  tags:
-    - 'role::disk-init'
-    - 'role::disk-init:install'
   when: not( (disks is undefined) or (disks is none) or (disks | trim == '') )
