@@ -1,3 +1,4 @@
---
+---
+
 - include: disk-init.yml
   when: not( (disks is undefined) or (disks is none) or (disks | trim == '') )
