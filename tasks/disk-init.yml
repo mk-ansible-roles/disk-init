@@ -109,9 +109,10 @@
   lvol: 
     state: present 
     vg: "{{ item.value.vol }}"
-    lv: lv_{{ item.key }}
+    lv: "{{ item.key }}"
     size: "{{ item.value.size }}"
     pvs: "{{ item.value.pvs | default(omit) }}"
+    opts: "{{ item.value.lvopts | default(omit) }}"
   with_dict: "{{ logvols }}"
   tags:
     - disk_init
@@ -119,10 +120,10 @@
 
 - name: create filesystems
   filesystem:
-    dev:  /dev/{{ item.value.vol}}/lv_{{ item.key }}
+    dev:  /dev/{{ item.value.vol}}/{{ item.key }}
     fstype: "{{ item.value.fstype | default('xfs')}}"
     force: no
-    opts: "{{ item.value.opts | default(omit) }}"
+    opts: "{{ item.value.fsopts | default(omit) }}"
   with_dict: "{{ logvols }}"
   ignore_errors: True
   tags:
@@ -135,7 +136,7 @@
     fstype: "{{ item.value.fstype | default('xfs')}}"
     opts: defaults
     passno: 4
-    src: "/dev/{{ item.value.vol }}/lv_{{ item.key }}"
+    src: "/dev/{{ item.value.vol }}/{{ item.key }}"
     state: mounted
   with_dict: "{{ logvols }}"
   tags:
