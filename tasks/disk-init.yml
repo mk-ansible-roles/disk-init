@@ -37,7 +37,7 @@
        exit 0
    else
       sgdisk --zap {{ item.key }}
-      /sbin/pvcreate '{{ item.key }}'
+      /sbin/pvcreate -f '{{ item.key }}'
       exit 90
    fi
   with_dict: "{{ disks }}"
